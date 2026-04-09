@@ -1,0 +1,9 @@
+Cursor Rules
+
+- Use TypeScript for all components
+- Follow React Native best practices
+- Maintain clean and readable code
+- Do not break existing UI styles
+- Handle all errors properly
+- Ensure compatibility with Supabase
+- Keep AI integration modular and reusable

@@ -1,50 +1,93 @@
-# Welcome to your Expo app 👋
+📦 Delivery Challan App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+🚀 Overview
 
-## Get started
+This is a mobile application built using React Native (Expo) and Supabase to manage Delivery Challans efficiently.
 
-1. Install dependencies
+The app allows users to create, update, delete, and track delivery challans. It also includes an AI-powered feature to scan or upload images and automatically extract challan details.
 
-   ```bash
-   npm install
-   ```
+---
 
-2. Start the app
+✨ Features
 
-   ```bash
-   npx expo start
-   ```
+- ✅ Create Delivery Challan
+- ✏️ Edit and Update Challan
+- 🗑️ Delete Challan
+- 📋 View Active / Returned / Pending Challans
+- 🤖 AI-based Image Scanning (Gemini API)
+- 📷 Camera & Gallery Upload Support
+- ⚡ Autofill form fields from scanned image
 
-In the output, you'll find options to open the app in a
+---
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+🛠️ Tech Stack
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- React Native (Expo)
+- Supabase (Database & Backend)
+- Gemini AI (Image text extraction)
 
-## Get a fresh project
+---
 
-When you're ready, run:
+🗄️ Database Design
 
-```bash
-npm run reset-project
-```
+delivery_challans
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- id (Primary Key)
+- dc_number
+- date
+- from_details
+- to_details
+- is_returnable
+- side_status (pending / partial / returned / non-returnable)
 
-## Learn more
+items
 
-To learn more about developing your project with Expo, look at the following resources:
+- id (Primary Key)
+- dc_id (Foreign Key)
+- part_name
+- quantity
+- notes
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+---
 
-## Join the community
+🔄 Application Flow
 
-Join our community of developers creating universal apps.
+1. User opens Dashboard
+2. Clicks "+" to create a new DC
+3. User can:
+   - Enter data manually
+   - OR scan/upload an image
+4. AI extracts details and autofills form
+5. User clicks "Create DC"
+6. Data stored in database
+7. Dashboard updates automatically
+8. User can Edit or Delete DC
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+---
+
+🤖 AI Integration
+
+The app uses Gemini AI to:
+
+- Extract text from delivery challan images
+- Identify key fields (from, to, item, quantity, notes, status)
+- Autofill form fields automatically
+
+---
+
+▶️ How to Run
+
+npm install
+npx expo start
+
+Open in:
+
+- Expo Go (Mobile)
+- Android Emulator
+- Web Browser
+
+---
+
+👩‍💻 Author
+
+Mohanapriya
