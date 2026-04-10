@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useIsFocused } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import { useEffect, useMemo, useState } from "react";
 import {
@@ -251,10 +252,12 @@ export default function HomeScreen() {
       setDcs(data as DCRow[]);
     }
   };
-
+  const isFocused = useIsFocused();
   useEffect(() => {
-    fetchDCs();
-  }, []);
+    if (isFocused) {
+      fetchDCs();
+    }
+  }, [isFocused]);
 
   const leaveToLogin = async () => {
     await supabase.auth.signOut();

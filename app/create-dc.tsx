@@ -224,7 +224,7 @@ export default function CreateDCScreen() {
       "Success",
       editData ? "DC updated successfully." : "DC ceated successfully.",
     );
-    router.back();
+    router.replace("/home");
   };
 
   return (
