@@ -19,6 +19,7 @@ import {
   scanImageAndFillFields,
 } from "../services/gemini";
 import { supabase } from "../services/supabase";
+
 export default function CreateDCScreen() {
   const router = useRouter();
   const [from, setFrom] = useState("");
@@ -125,6 +126,9 @@ export default function CreateDCScreen() {
     ]);
   };
   const handleCreate = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     const fromText = from.trim();
     const toText = to.trim();
 
@@ -145,6 +149,7 @@ export default function CreateDCScreen() {
       side_status: isReturnable
         ? normalizeSideStatus(detectedStatus)
         : "non-returnable",
+      user_id: user?.id,
     };
 
     let data, error;
@@ -205,6 +210,7 @@ export default function CreateDCScreen() {
             part_name: partName,
             quantity: Number(quantity || 0),
             notes: notes || "",
+            user_id: user?.id,
           },
         ])
         .select();

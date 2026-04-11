@@ -202,7 +202,7 @@ function DCCard({
   );
 }
 
-export default function HomeScreen() {
+export default async function HomeScreen() {
   const router = useRouter();
   const [dcs, setDcs] = useState<DCRow[]>([]);
   const [search, setSearch] = useState("");
@@ -239,13 +239,24 @@ export default function HomeScreen() {
   );
 
   const fetchDCs = async () => {
-    const { data, error } = await supabase.from("delivery_challans").select(`
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) return;
+
+    const { data, error } = await supabase
+      .from("delivery_challans")
+      .select(
+        `
       *,
       items (
         part_name,
         quantity
       )
-    `);
+    `,
+      )
+      .eq("user_id", user?.id);
     if (error) {
       console.log(error);
     } else if (data) {
