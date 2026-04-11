@@ -1,5 +1,7 @@
 📦 Delivery Challan App
 
+Hosting URL :https://ai-dc-app.web.app
+
 🚀 Overview
 
 This is a mobile application built using React Native (Expo) and Supabase to manage Delivery Challans efficiently.
