@@ -4,6 +4,7 @@ import { useRouter } from "expo-router";
 import { useEffect, useMemo, useState } from "react";
 import {
   Alert,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -202,7 +203,7 @@ function DCCard({
   );
 }
 
-export default async function HomeScreen() {
+export default function HomeScreen() {
   const router = useRouter();
   const [dcs, setDcs] = useState<DCRow[]>([]);
   const [search, setSearch] = useState("");
@@ -288,25 +289,41 @@ export default async function HomeScreen() {
   };
 
   const handleDelete = async (id: string) => {
-    Alert.alert("Confirm", "Delete this DC?", [
-      { text: "Cancel", style: "cancel" },
-      {
-        text: "Delete",
-        style: "destructive",
-        onPress: async () => {
-          const { error } = await supabase
-            .from("delivery_challans")
-            .delete()
-            .eq("id", id);
+    if (Platform.OS === "web") {
+      const confirmDelete = window.confirm("Delete this DC?");
+      if (!confirmDelete) return;
 
-          if (error) {
-            alert(error.message);
-          } else {
-            fetchDCs();
-          }
+      const { error } = await supabase
+        .from("delivery_challans")
+        .delete()
+        .eq("id", id);
+
+      if (error) {
+        alert(error.message);
+      } else {
+        fetchDCs();
+      }
+    } else {
+      Alert.alert("Confirm", "Delete this DC?", [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: async () => {
+            const { error } = await supabase
+              .from("delivery_challans")
+              .delete()
+              .eq("id", id);
+
+            if (error) {
+              alert(error.message);
+            } else {
+              fetchDCs();
+            }
+          },
         },
-      },
-    ]);
+      ]);
+    }
   };
   return (
     <SafeAreaView
